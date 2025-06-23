@@ -45,7 +45,7 @@ Send a JSON object with the following structure:
         "firstname": "John",
         "lastname": "Doe"
       },
-      "email": "john.doe@example.com",
+      "email": "john.doe@example.com"
       // other user fields
     }
   }
@@ -74,6 +74,81 @@ Send a JSON object with the following structure:
   ```json
   {
     "message": "All Fields are required"
+  }
+  ```
+
+---
+
+# User Login Endpoint Documentation
+
+## POST `/users/login`
+
+Authenticates an existing user and returns a JWT token.
+
+### Description
+
+This endpoint allows a registered user to log in using their email and password. If the credentials are valid, a JWT authentication token and user data are returned.
+
+### Request Body
+
+Send a JSON object with the following structure:
+
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "yourpassword"
+}
+```
+
+#### Field Requirements
+
+- `email` (string, required): Must be a valid email address.
+- `password` (string, required): Minimum 6 characters.
+
+### Responses
+
+#### Success
+
+- **Status Code:** `200 OK`
+- **Body:**
+  ```json
+  {
+    "token": "jwt_token_here",
+    "user": {
+      "_id": "user_id",
+      "fullname": {
+        "firstname": "John",
+        "lastname": "Doe"
+      },
+      "email": "john.doe@example.com"
+      // other user fields
+    }
+  }
+  ```
+
+#### Validation Error
+
+- **Status Code:** `400 Bad Request`
+- **Body:**
+  ```json
+  {
+    "errors": [
+      {
+        "msg": "Error message",
+        "param": "field",
+        "location": "body"
+      }
+    ]
+  }
+  ```
+
+#### Invalid Credentials
+
+- **Status Code:** `401 Unauthorized`
+- **Body:**
+  ```json
+  {
+    "message": "Invalid email or password"
   }
   ```
 
