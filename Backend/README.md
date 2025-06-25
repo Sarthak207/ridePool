@@ -154,5 +154,99 @@ Send a JSON object with the following structure:
 
 ---
 
+# User Profile Endpoint Documentation
+
+## GET `/users/profile`
+
+Returns the profile information of the authenticated user.
+
+### Description
+
+This endpoint returns the profile data of the currently authenticated user. The request must include a valid JWT token in the `Authorization` header as a Bearer token or as a cookie named `token`.
+
+### Authentication
+
+- **Required:** Yes (JWT token)
+
+### Request Headers
+
+- `Authorization: Bearer <jwt_token>`  
+  or  
+- Cookie: `token=<jwt_token>`
+
+### Responses
+
+#### Success
+
+- **Status Code:** `200 OK`
+- **Body:**
+  ```json
+  {
+    "_id": "user_id",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com"
+    // other user fields
+  }
+  ```
+
+#### Unauthorized
+
+- **Status Code:** `401 Unauthorized`
+- **Body:**
+  ```json
+  {
+    "message": "Unauthorized"
+  }
+  ```
+
+---
+
+# User Logout Endpoint Documentation
+
+## POST `/users/logout`
+
+Logs out the authenticated user by blacklisting their JWT token.
+
+### Description
+
+This endpoint logs out the currently authenticated user. The JWT token is blacklisted and cannot be used for further requests. The token must be provided in the `Authorization` header as a Bearer token or as a cookie named `token`.
+
+### Authentication
+
+- **Required:** Yes (JWT token)
+
+### Request Headers
+
+- `Authorization: Bearer <jwt_token>`  
+  or  
+- Cookie: `token=<jwt_token>`
+
+### Responses
+
+#### Success
+
+- **Status Code:** `200 OK`
+- **Body:**
+  ```json
+  {
+    "message": "Logged out"
+  }
+  ```
+
+#### Unauthorized
+
+- **Status Code:** `401 Unauthorized`
+- **Body:**
+  ```json
+  {
+    "message": "Unauthorized"
+  }
+  ```
+
+---
+
 **Note:**  
-All fields are required. Passwords are securely hashed before storage. The returned JWT token should be used for
+All endpoints require valid input and authentication where specified. The JWT token should be included in requests to
