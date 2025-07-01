@@ -49,12 +49,12 @@ const Captainlogin = () => {
           </button>
 
           <p className='text-center text-sm'>
-            Have Space? <Link to="/signup" className='text-blue-600'>Register as a captain</Link>
+            Have Space? <Link to="/captain-signup" className='text-blue-600'>Register as a captain</Link>
           </p>
         </form>
 
         <Link
-          to='/captain-login'
+          to='/login'
           className='bg-[#d5622d] flex items-center justify-center text-white font-semibold mt-6 rounded px-4 py-2 border w-full text-sm hover:bg-green-700' 
         >
           Sign in as User

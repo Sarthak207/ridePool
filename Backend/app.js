@@ -10,7 +10,10 @@ const captainRoutes= require('./routes/captain.routes');
 const app = express();
 connectToDb();
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // your frontend URL
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
