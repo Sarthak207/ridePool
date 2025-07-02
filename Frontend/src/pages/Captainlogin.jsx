@@ -1,21 +1,33 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { CaptainDataContext } from '../context/CaptainContext';
 
 const Captainlogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userData, setUserData] = useState({});
-  
-  const submitHandler = (e) => {
+  const { setCaptain } = useContext(CaptainDataContext);
+  const navigate = useNavigate();
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    setUserData({
-      email: email,
-      password: password
-    });
-    console.log(userData);
-    setEmail('');
-    setPassword('');
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/captains/login`,
+        { email, password },
+        { withCredentials: true }
+      );
+      console.log(response); // <-- Add this line
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        setCaptain(response.data.captain);
+        navigate('/captain-home');
+      }
+    } catch (error) {
+      alert(error.response?.data?.message || 'Login failed');
+    }
   };
+
   return (
     <div className='p-7 flex flex-col justify-between min-h-screen bg-gray-100 items-center justify-center'>
       <div className='bg-white w-80 p-6 rounded shadow-sm'>
