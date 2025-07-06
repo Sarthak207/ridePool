@@ -1,52 +1,39 @@
 import React from 'react';
 
-const LocationSearchPanel = () => {
+const LocationSearchPanel = (props) => {
+  const locations = [
+    "Flat No. 204, Lotus Residency Sector 15, Navi Mumbai",
+    "No. 18, 2nd Cross, Lakshmi Nagar Near City Hospital, Bengaluru",
+    "House No. 77, Shanti Vihar, Patna",
+    "Plot No. 12, Green Park Colony, Chennai",
+  ];
+
   return (
     <div className="p-4">
-      <div className="flex items-center gap-3">
-        <span className="bg-blue-100 h-10 w-10 flex rounded-full items-center justify-center shadow text-blue-600">
-          <i className="ri-map-pin-fill text-2xl"></i>
-        </span>
-        <div>
-          <h4 className="font-semibold text-blue-800 text-base">
-            A6, Yash Muthiyan, Garkheda Parisar, CSM
-          </h4>
-          {/*<span className="text-xs text-gray-500">Saved College Address</span>*/}
-        </div>
+      <div className="mb-4 text-center text-blue-700 font-bold text-sm tracking-wide uppercase">
+        Suggested Locations
       </div>
-      <div className="flex items-center gap-3">
-        <span className="bg-blue-100 h-10 w-10 flex rounded-full items-center justify-center shadow text-blue-600">
-          <i className="ri-map-pin-fill text-2xl"></i>
-        </span>
-        <div>
-          <h4 className="font-semibold text-blue-800 text-base">
-            A6, Yash Muthiyan, Garkheda Parisar, CSM
-          </h4>
-          {/*<span className="text-xs text-gray-500">Saved College Address</span>*/}
+      {locations.map((location, idx) => (
+        <div
+          onClick={() => {
+            props.setPanelOpen(false);
+            props.setVehiclePanel(true);
+            if (props.onLocationSelect) props.onLocationSelect(location);
+          }}
+          className="flex items-center gap-3 cursor-pointer bg-white hover:bg-blue-50 border border-blue-100 rounded-xl px-3 py-3 mb-3 shadow transition-all duration-200"
+          key={idx}
+        >
+          <span className="bg-blue-200 h-11 w-11 flex rounded-full items-center justify-center shadow text-blue-600 border-2 border-blue-400">
+            <i className="ri-map-pin-fill text-2xl"></i>
+          </span>
+          <div className="flex-1">
+            <h4 className="font-semibold text-blue-800 text-base leading-snug">
+              {location}
+            </h4>
+          </div>
+          <i className="ri-arrow-right-s-line text-blue-400 text-2xl"></i>
         </div>
-      </div>
-      <div className="flex items-center gap-3">
-        <span className="bg-blue-100 h-10 w-10 flex rounded-full items-center justify-center shadow text-blue-600">
-          <i className="ri-map-pin-fill text-2xl"></i>
-        </span>
-        <div>
-          <h4 className="font-semibold text-blue-800 text-base">
-            A6, Yash Muthiyan, Garkheda Parisar, CSM
-          </h4>
-          {/*<span className="text-xs text-gray-500">Saved College Address</span>*/}
-        </div>
-      </div>
-      <div className="flex items-center gap-3">
-        <span className="bg-blue-100 h-10 w-10 flex rounded-full items-center justify-center shadow text-blue-600">
-          <i className="ri-map-pin-fill text-2xl"></i>
-        </span>
-        <div>
-          <h4 className="font-semibold text-blue-800 text-base">
-            A6, Yash Muthiyan, Garkheda Parisar, CSM
-          </h4>
-          {/*<span className="text-xs text-gray-500">Saved College Address</span>*/}
-        </div>
-      </div>
+      ))}
     </div>
   );
 };
